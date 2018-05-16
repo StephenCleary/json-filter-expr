@@ -1,0 +1,53 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "identifier": "Build",
+            "dependsOn": [
+                "Peg"
+            ],
+            "type": "npm",
+            "script": "build",
+            "problemMatcher": [
+                "$tsc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "never"
+            }
+        },
+        {
+            "identifier": "Peg",
+            "type": "npm",
+            "script": "peg",
+            "problemMatcher": {
+                "owner": "pegjs",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "pattern": [
+                    {
+                        "regexp": "^([^\\s].*)$",
+                        "file": 1
+                    },
+                    {
+                        "regexp": "^(\\d+):(\\d+):\\s*(.*)$",
+                        "line": 1,
+                        "column": 2,
+                        "message": 3,
+                        "loop": true
+                    }
+                ]
+            },
+            "presentation": {
+                "reveal": "never"
+            }
+        }
+    ]
+}

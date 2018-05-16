@@ -1,0 +1,38 @@
+{
+  "name": "json-filter-expr",
+  "version": "1.0.0",
+  "description": "Simple JSON filtering for possibly-slightly-less-technical end users.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "peg": "echo src/json-filter-expr.pegjs && pegjs --plugin ./node_modules/ts-pegjs/src/tspegjs -o src/json-filter-expr.ts src/json-filter-expr.pegjs",
+    "build": "tsc",
+    "test": "mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StephenCleary/json-filter-expr.git"
+  },
+  "keywords": [
+    "json",
+    "filter",
+    "search",
+    "expression"
+  ],
+  "author": "Stephen Cleary",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/StephenCleary/json-filter-expr/issues"
+  },
+  "homepage": "https://github.com/StephenCleary/json-filter-expr#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1",
+    "pegjs": "^0.10.0",
+    "ts-pegjs": "^0.1.13",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {
+    "@types/pegjs": "^0.10.0"
+  }
+}
