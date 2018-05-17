@@ -1,3 +1,4 @@
+// Result type is a function that takes a field value and returns a boolean.
 ValueExpression
   = ValueAndExpression
   / ValueOrExpression
@@ -13,11 +14,11 @@ ValueOrExpression
 Condition "condition"
   = v:QuotedString { return function(value) { return value === v; }; } // TODO: not equality
   / v:(Number/BooleanLiteral/NullLiteral) { return function(value) { return value === v; }; }
-  / '=' _? v:(QuotedString/Number/BooleanLiteral/NullLiteral) { return function(value) { return value === v; }; }
-  / '>=' _? v:(QuotedString/Number) { return function(value) { return value >= v; }; }
-  / '<=' _? v:(QuotedString/Number) { return function(value) { return value <= v; }; }
-  / '>' _? v:(QuotedString/Number) { return function(value) { return value > v; }; }
-  / '<' _? v:(QuotedString/Number) { return function(value) { return value < v; }; }
+  / '=' _? v:(QuotedString/Number) { return function(value) { return value === v; }; }
+  / '>=' _? v:(QuotedString/Number) { return function(value) { return typeof(value) === typeof(v) && value >= v; }; }
+  / '<=' _? v:(QuotedString/Number) { return function(value) { return typeof(value) === typeof(v) && value <= v; }; }
+  / '>' _? v:(QuotedString/Number) { return function(value) { return typeof(value) === typeof(v) && value > v; }; }
+  / '<' _? v:(QuotedString/Number) { return function(value) { return typeof(value) === typeof(v) && value < v; }; }
   / 'NOT' _ c:Condition { return function(value) { return !c(value); }; }
   / '(' _? c:ValueExpression _? ')' { return c; }
 
@@ -27,6 +28,8 @@ QuotedStringCharacter
   = !('"' / "\\") char:. { return char; }
   / "\\" escaped:('"' / "\\") { return escaped; }
   
+BareWord = [A-Za-z_][-_A-Za-z0-9] // TODO: eventually, we want this to allow other languages. Auto-generate this from https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
+
 Number "number" = '-'?('0'/([1-9][0-9]*))('.'[0-9]+)?([eE][-+]?[0-9]+)? { return Number(text()); }
 
 BooleanLiteral
@@ -35,4 +38,4 @@ BooleanLiteral
 
 NullLiteral = "#null" { return null; }
 
-_ "whitespace" = [ \t]+
+_ "whitespace" = [ ]+
