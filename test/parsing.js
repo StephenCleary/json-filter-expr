@@ -17,3 +17,8 @@ describe('parsing numbers', () => {
     it('`1024.123e-02` matches 10.24123', () => { expect(compile("1024.123e-02")(10.24123)).to.equal(true); });
     it('`1024.123e002` matches 102412.3', () => { expect(compile("1024.123e002")(102412.3)).to.equal(true); });
 });
+describe('parsing strings', () => {
+    it('`="bob"` matches "bob"', () => { expect(compile('="bob"')("bob")).to.equal(true); });
+    it('`="bob"` does not match "bobc"', () => { expect(compile('="bob"')("bobc")).to.equal(false); });
+    it('`="bob says ""Hi"""` matches "bob says \\"Hi\\"', () => { expect(compile('="bob says ""Hi"""')("bob says \"Hi\"")).to.equal(true); });
+});

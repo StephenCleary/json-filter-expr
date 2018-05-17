@@ -25,8 +25,8 @@ Condition "condition"
 QuotedString "string in quotes" = '"' value:QuotedStringCharacter* '"' { return value.join(''); }
 
 QuotedStringCharacter
-  = !('"' / "\\") char:. { return char; }
-  / "\\" escaped:('"' / "\\") { return escaped; }
+  = !'"' char:. { return char; }
+  / '""' { return "\""; }
   
 BareWord = [A-Za-z_][-_A-Za-z0-9] // TODO: eventually, we want this to allow other languages. Auto-generate this from https://www.unicode.org/Public/UCD/latest/ucd/UnicodeData.txt
 
