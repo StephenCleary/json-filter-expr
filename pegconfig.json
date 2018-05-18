@@ -1,0 +1,5 @@
+{
+    "tspegjs": {
+        "customHeader": "import { default as escapeStringRegexp } from 'escape-string-regexp';"
+    }
+}

@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "peg": "echo src/json-filter-expr.pegjs && pegjs --plugin ./node_modules/ts-pegjs/src/tspegjs -o src/json-filter-expr.ts src/json-filter-expr.pegjs",
+    "peg": "echo src/json-filter-expr.pegjs && pegjs --plugin ./node_modules/ts-pegjs/src/tspegjs --extra-options-file pegconfig.json -o src/json-filter-expr.ts src/json-filter-expr.pegjs",
     "build": "tsc",
     "test": "mocha --reporter spec"
   },
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/StephenCleary/json-filter-expr#readme",
   "devDependencies": {
+    "@types/escape-string-regexp": "0.0.32",
     "chai": "^4.1.2",
     "mocha": "^5.1.1",
     "pegjs": "^0.10.0",
@@ -33,6 +34,7 @@
     "typescript": "^2.8.3"
   },
   "dependencies": {
-    "@types/pegjs": "^0.10.0"
+    "@types/pegjs": "^0.10.0",
+    "escape-string-regexp": "^1.0.5"
   }
 }

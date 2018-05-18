@@ -22,3 +22,8 @@ describe('parsing strings', () => {
     it('`="bob"` does not match "bobc"', () => { expect(compile('="bob"')("bobc")).to.equal(false); });
     it('`="bob says ""Hi"""` matches "bob says \\"Hi\\"', () => { expect(compile('="bob says ""Hi"""')("bob says \"Hi\"")).to.equal(true); });
 });
+describe('parsing bare words', () => {
+    it('`bob` matches "bob"', () => { expect(compile('bob')("bob")).to.equal(true); });
+    it('`bob` does not match "bod"', () => { expect(compile('bob')("bod")).to.equal(false); });
+    it('`A-bit-more_C0mplex` matches "a-bit-more_c0mplex"', () => { expect(compile('A-bit-more_C0mplex')("a-bit-more_c0mplex")).to.equal(true); });
+});
