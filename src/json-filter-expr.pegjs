@@ -18,7 +18,7 @@ Condition "condition"
       return typeof(value) === 'string' && re.test(value);
     };
   }
-  / v:(Number/BooleanLiteral/NullLiteral) { return function(value) { return value === v; }; }
+  / v:Number { return function(value) { return value === v; }; }
   / '=' _? v:(QuotedString/Number) { return function(value) { return value === v; }; }
   / '>=' _? v:(QuotedString/Number) { return function(value) { return typeof(value) === typeof(v) && value >= v; }; }
   / '<=' _? v:(QuotedString/Number) { return function(value) { return typeof(value) === typeof(v) && value <= v; }; }
@@ -50,11 +50,5 @@ QuotedStringCharacter
 BareWord "bare word" = value1:[A-Za-z_] value2:[-_A-Za-z0-9]* { return value1 + value2.join(''); }
 
 Number "number" = '-'?('0'/([1-9][0-9]*))('.'[0-9]+)?([eE][-+]?[0-9]+)? { return Number(text()); }
-
-BooleanLiteral
-  = "#true" { return true; }
-  / "#false" { return false; }
-
-NullLiteral = "#null" { return null; }
 
 _ "whitespace" = [ ]+
